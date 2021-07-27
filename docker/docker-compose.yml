@@ -14,5 +14,8 @@ services:
     container_name: "catalog-service"
     ports:
       - 9001:9001
+      - 8001:8001
     environment:
+      # JVM environment variable to enable debug through a socket on port 8001
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8001
       - SPRING_DATASOURCE_URL=jdbc:postgresql://polar-postgres-catalog:5432/polardb_catalog
