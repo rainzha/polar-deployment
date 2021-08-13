@@ -45,3 +45,9 @@ services:
       - POLAR_CATALOG_SERVICE_URL=http://catalog-service:9001/books/
       - SPRING_R2DBC_URL=r2dbc:postgresql://polar-postgres-order:5432/polardb_order
       - SPRING_FLYWAY_URL=jdbc:postgresql://polar-postgres-order:5432/polardb_order
+
+  polar-redis:
+    image: "redis:6"
+    container_name: "polar-redis"
+    ports:
+      - 6379:6379
