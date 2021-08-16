@@ -67,7 +67,7 @@ services:
       - SPRING_REDIS_HOST=polar-redis
 
   polar-rabbitmq:
-    image: rabbitmq:3-management
+    image: "rabbitmq:3.8-management"
     container_name: polar-rabbitmq
     ports:
       - 5672:5672
