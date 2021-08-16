@@ -51,3 +51,27 @@ services:
     container_name: "polar-redis"
     ports:
       - 6379:6379
+  edge-service:
+    depends_on:
+      - polar-redis
+    image: "rainzha/edge-service:0.0.1-SNAPSHOT"
+    container_name: "edge-service"
+    ports:
+      - 9000:9000
+      - 8000:8000
+    environment:
+      # JVM environment variable to enable debug through a socket on port 8000
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000
+      - CATALOG_SERVICE_URL=http://catalog-service:9001
+      - ORDER_SERVICE_URL=http://order-service:9002
+      - SPRING_REDIS_HOST=polar-redis
+
+  polar-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: polar-rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
